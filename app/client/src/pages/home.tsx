@@ -10,6 +10,9 @@ import {
 } from "@/lib/atlas";
 import { EpisodeCard, EraPill, Loading, SectionHeading } from "@/components/atlas-ui";
 import { EraTimeline } from "@/components/era-timeline";
+import { LiveShowsStrip } from "@/components/live-shows-strip";
+import { YouTubeStrip } from "@/components/youtube-strip";
+import { ClubCTA } from "@/components/club-cta";
 
 export default function Home() {
   usePageMeta(
@@ -55,6 +58,9 @@ export default function Home() {
           </Link>
         </div>
       </section>
+
+      {/* Live shows — refreshed daily from therestishistory.com/events */}
+      <LiveShowsStrip />
 
       {/* Timeline hero */}
       <section className="mt-12">
@@ -146,6 +152,12 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* YouTube — refreshed daily from @restishistorypod RSS */}
+      <YouTubeStrip />
+
+      {/* Rest Is History Club CTA */}
+      <ClubCTA />
 
       {/* Eras index */}
       <section className="mt-16">

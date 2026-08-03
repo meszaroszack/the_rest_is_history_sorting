@@ -192,6 +192,71 @@ export interface Atlas {
   searchText: Map<string, string>;
 }
 
+// ============================================================
+// Extras: live shows, YouTube, club — refreshed daily by the pipeline
+// ============================================================
+
+export interface LiveEvent {
+  name: string;
+  date_iso: string;
+  date_display: string;
+  venue: string;
+  cta: string;
+  link: string;
+}
+
+export interface YouTubeVideo {
+  video_id: string;
+  url: string;
+  title: string;
+  published: string;
+  thumbnail: string;
+  slug: string;
+}
+
+export interface ClubMeta {
+  benefits: string[];
+  monthly_price_display: string;
+  yearly_price_display: string;
+  signup_url: string;
+  site_url: string;
+  last_updated: string;
+}
+
+export interface Extras {
+  live_events: LiveEvent[];
+  youtube_latest: YouTubeVideo[];
+  club: ClubMeta;
+  fetched_at: string;
+}
+
+export function useExtras() {
+  return useQuery<Extras>({
+    queryKey: ["extras"],
+    staleTime: 1000 * 60 * 30,
+    queryFn: async () => {
+      try {
+        return await loadJson<Extras>("extras.json");
+      } catch {
+        // Older builds without extras.json still render — return an empty shell
+        return {
+          live_events: [],
+          youtube_latest: [],
+          club: {
+            benefits: [],
+            monthly_price_display: "",
+            yearly_price_display: "",
+            signup_url: "https://therestishistory.com/club",
+            site_url: "https://therestishistory.com",
+            last_updated: "",
+          },
+          fetched_at: "",
+        };
+      }
+    },
+  });
+}
+
 export function useAtlas() {
   const q = useQuery<Atlas>({
     queryKey: ["atlas"],
