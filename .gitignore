@@ -1,5 +1,9 @@
 # Node
 node_modules/
+
+# Pipeline scratch dir
+rih_work/
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
