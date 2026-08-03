@@ -1,0 +1,16 @@
+{
+  "name": "the-rest-is-history-sorting",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Root proxy for the app/ subdirectory so Railway (or any Node host) can build from the repo root.",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "install:app": "cd app && npm install",
+    "postinstall": "cd app && npm install",
+    "build": "cd app && npm run build",
+    "start": "cd app && npm start",
+    "dev": "cd app && npm run dev"
+  }
+}

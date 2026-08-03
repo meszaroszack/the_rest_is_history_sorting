@@ -1,0 +1,15 @@
+# Nixpacks config — Railway's default builder for Node projects.
+# The web app lives in ./app so we shim install/build/start to run there.
+providers = ["node"]
+
+[phases.setup]
+nixPkgs = ["nodejs_20", "npm-9_x"]
+
+[phases.install]
+cmds = ["cd app && npm ci"]
+
+[phases.build]
+cmds = ["cd app && npm run build"]
+
+[start]
+cmd = "cd app && NODE_ENV=production node dist/index.cjs"

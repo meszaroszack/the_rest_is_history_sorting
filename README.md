@@ -141,17 +141,17 @@ Total build output: ~2.3 MB (1.7 MB of that is `episodes.json`).
 
 ## Deploying to Railway
 
-`app/railway.json` is pre-wired. From the repo root:
+The repo root has `railway.json`, `nixpacks.toml`, `Procfile`, and a proxy `package.json` — Railway auto-detects Node and builds the app from the `app/` subdirectory. From the repo root:
 
 ```bash
 railway login
-railway init
+railway link      # link to an existing project, or `railway init` for a new one
 railway up
 ```
 
-Railway detects Node, runs `npm install && npm run build`, then starts with `NODE_ENV=production node dist/index.cjs`. The Express server proxies `/api/*` (currently unused) and serves the static bundle from `dist/public`.
+What happens under the hood: Nixpacks installs Node 20, runs `cd app && npm ci && npm run build`, then starts with `cd app && NODE_ENV=production node dist/index.cjs`. The Express server reads `$PORT` from Railway's env and serves the static bundle from `app/dist/public`.
 
-If you'd rather deploy the static output only (no Express), point Railway (or any static host) at `app/dist/public` and it's a single-page app; the hash routes work without a server.
+If you'd rather deploy the static output only (no Express), build locally and point Railway (or any static host) at `app/dist/public`; the hash routes work without a server.
 
 ---
 
